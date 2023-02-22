@@ -1,0 +1,39 @@
+﻿@using EShop.Models.DTOS
+@model NewCategoryDTO
+
+<form class="col-xs-7 col-sm-7 col-md-7 col-lg-7" method="post" asp-action="DeletePost">
+    <input asp-for="Id" hidden />
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Delete Category</h2>
+            <hr />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" disabled class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Description"></label>
+            <input asp-for="Description" disabled class="form-control" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="ParentCategoryId">Parent Category</label>
+            <select class="input-group-text" disabled>
+                @if(Model.ParentCategoryId == null)
+                {
+                <option selected disabled>None</option>
+                }
+                else
+                {
+                <option selected disabled>@Model.ParentName</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-danger" style="width:150px">Delete</button>
+        <a asp-controller="Admin" asp-action="Index" class="btn btn-secondary" style="width:150px">
+            Back
+        </a>
+    </div>
+</form>

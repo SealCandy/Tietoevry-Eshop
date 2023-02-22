@@ -1,0 +1,66 @@
+﻿@using EShop.Models.ViewModels
+@model List<ProductVariantViewModel>;
+<h3>Shopping cart:</h3>
+<table class="table table-bordered table-striped" style="width: 100%">
+    <thead>
+        <tr>
+            <th>
+                Product name:
+            </th>
+            <th>
+                Quantity:
+            </th>
+            <th>
+                Price:
+            </th>
+            <th>
+                Actions:
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td width="50%">
+                        <div>
+                            <img src="@item.Image" style="width:80%">
+                        </div>
+                        @item.Name @item.ParamName1: @item.ParamValue1
+                    </td>
+                    <td width="30%">
+                        <form id="update" asp-action="updateCookie" method="post">
+                            <input asp-for="@item.Quantity" id="@item.VariantId" type="number" onchange="UpdateQuantity()" min="1" class="form-control" value="@item.Quantity" />
+                            <input  hidden asp-for="@item.VariantId" value="@item.VariantId">
+                        </form>
+                    </td>
+                    <td width="30%">
+                       <strong> Total Price: </strong>@(@item.Price * @item.Quantity)
+                        @if (item.Quantity > 1)
+                        {
+                            <span><strong>Price per piece: </strong>@item.Price</span>
+                            <span id="Item @item.VariantId"></span>
+                        }
+                    </td>
+                    <td>
+                        <div class="w-80 btn-group" role="group">
+                            <a asp-area="" asp-controller="Order" asp-action="Delete" asp-route-id="@item.VariantId" class="btn btn-danger mx-2">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<a asp-controller="Home" asp-action="Index" class="btn btn-success" style="width:150px">Back</a>
+<a asp-controller="Order" asp-action="FinishOrder" class="btn btn-success" style="width:150px">Order </a>
+
+<script type="text/javascript">
+    function UpdateQuantity() {
+        //var quantity = document.getElementById(id).value;
+        document.getElementById('update').submit();
+        //window.location.href = '@Url.Action("UpdateCookie", "Order")/' + id + '?quantity=' + quantity;
+    }
+</script>

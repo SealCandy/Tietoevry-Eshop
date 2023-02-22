@@ -1,0 +1,23 @@
+﻿@using EShop.Models.DTOS
+@using EShop.Models.StaticClasses
+@using Newtonsoft.Json
+@inject IHttpContextAccessor httpContextAcessor;
+
+@{
+    if (string.IsNullOrEmpty(httpContextAcessor.HttpContext.Session.GetString(SessionKeyManager.SessionKeyForUsers)))
+    {
+        <li class="nav-item justify-content-end">
+            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index"><i class="bi bi-person-circle fs-5"></i></a>
+        </li>
+    }
+    else
+    {
+        var customerDTO = JsonConvert.DeserializeObject<CustomerDTO>(httpContextAcessor.HttpContext.Session.GetString(SessionKeyManager.SessionKeyForUsers));
+        <li class="nav-item justify-content-end">
+            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="UserPage">@customerDTO.Name</a>
+        </li>
+        <li class="nav-item justify-content-end">
+            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="LogOff"><i class="bi bi-box-arrow-right fs-5"></i></a>
+        </li>
+    }
+}

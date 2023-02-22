@@ -1,0 +1,48 @@
+﻿@using EShop.Models.DTOS
+@using EShop.Models.ViewModels
+@using Microsoft.AspNetCore.Components.Web
+@model ProductVariantViewModel
+<div class="offset-sm-2 col col-sm-6 text-center">
+    <div class="row">
+        <div class="col-sm-5 img-thumbnail">
+            <img src="@Model.Image" style="width:80%">
+            <div class="caption">
+                <h5>@Model.Name Variant: @Model.ParamValue1</h5>
+                <h6>Price: @Model.Price</h6>
+                <h6>@Model.ParamName1: @Model.ParamValue1</h6>
+                <h6>@Model.ParamName2: @Model.ParamValue2</h6>
+                <h6>@Model.ParamName3: @Model.ParamValue3</h6>
+                <span>
+                    <strong>Description:</strong>
+                    @Model.Description
+                </span>
+            </div>
+        </div>
+        <div class="col-sm-5 align-self-start">
+            <form method="post" asp-action="addToCart">
+                <div>
+                    <label class="">Quantity</label>
+                    <div class="col-sm-">
+                        <input asp-for="Quantity" type="number" min="1" class="form-control" id="counter" value="@Model.Quantity" />
+                    </div>
+                    <div onclick="IncreaseValue()" class="btn btn-info">+</div>
+                    <div onclick="DecreaseValue()" class="btn btn-info">-</div>
+                    <input asp-for="VariantId" type="hidden" class="" value="@Model.VariantId" />
+                    <input asp-for="ProductId" type="hidden" class="" value="@Model.ProductId" />
+                </div>
+                <button type="submit" class="btn btn-success" style="width:150px">Add to cart</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function IncreaseValue() {
+        document.getElementById("counter").value++;
+    }
+    function DecreaseValue() {
+        if (document.getElementById("counter").value > 1)
+            document.getElementById("counter").value--;
+    }
+</script>
+

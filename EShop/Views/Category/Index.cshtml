@@ -1,0 +1,44 @@
+﻿@using EShop.Models.DTOS
+@using EShop.Models.Models
+@model NewCategoryDTO
+
+<div class="text-center col-xs-7 col-sm-7 col-md-7 col-lg-7">
+    <h1>@Model.Name:</h1>
+    <div class="row">
+        @foreach (var item in Model.Products)
+        {
+            @if (item != null)
+            {
+                @foreach (var variant in item.Variants)
+                {
+                    @if (variant != null)
+                    {
+                        await GenerateVariantDiv(item, variant);
+                    }
+                }
+            }
+        }
+    </div>
+</div>
+@functions {
+    private async Task GenerateVariantDiv(Product item, ProductVariant variant)
+    {
+        <div class="col col-md-4">
+            <div class="img-thumbnail">
+                @if (item.Image != null || item.Image == "")
+                {
+                    <img src="@item.Image" style="width:80%">
+                }
+                <a asp-controller="Product" asp-action="Index" asp-route-id="@item.Id" asp-route-varId="@variant.Id">
+                    <div class="caption">
+                        <h5>@item.Name Variant: @variant.ParamValue1</h5>
+                    </div>
+                </a>
+                <div>
+                    Price @variant.Price
+                </div>
+                <a asp-area="" asp-controller="Product" asp-action="Index" asp-route-id="@item.Id" asp-route-varId="@variant.Id" class="btn btn-success" style="width:150px">Add to cart</a>
+            </div>
+        </div>
+    }
+}

@@ -1,0 +1,68 @@
+﻿@using EShop.Models.ViewModels
+@model UserOrderView
+<div class="offset-sm-1 col col-sm-6 row">
+    <div class="col text-center">
+    <table class="table table-bordered table-striped" style="width: 100%">
+        <thead>
+            <tr>
+                <th>
+                    Product name:
+                </th>
+                <th>
+                    Quantity:
+                </th>
+                <th>
+                    Price:
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                foreach (var item in Model.ProductVariantViewModels)
+                {
+                    <tr>
+                        <td width="50%">
+                            <div>
+                                <img src="@item.Image" style="width:80%">
+                            </div>
+                            @item.Name @item.ParamName1: @item.ParamValue1
+                        </td>
+                        <td width="30%">
+                            <input type="number" min="1" disabled class="form-control" value="@item.Quantity" />
+                        </td>
+                        <td width="30%">
+                            Total Price: @(@item.Price * @item.Quantity)
+                            @if (item.Quantity > 1)
+                            {
+                                <span>Price per piece: @item.Price</span>
+                            }
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td width="50%">
+                        <span><strong>Price for All the products</strong></span>
+                    </td>
+                    <td width="30%">
+                        <strong>@Model.getTotalQuantity()</strong>
+                    </td>
+                    <td width="30%">
+                        <span><strong>Total Price:</strong> @Model.getTotalPrice()</span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    </div>
+    <div class="col">
+        <div class="row pb-2">
+            <h2 class="text-primary">User name and adress</h2>
+            <hr />
+        </div>
+        <form method="post" asp-action="CreateOrder">
+            <partial name="PartialViews\_UserForm" model="@Model.CustomerDTO" />
+            <button type="submit" class="btn btn-success" style="width:150px">Purchase</button>
+        </form>
+    </div>
+</div>

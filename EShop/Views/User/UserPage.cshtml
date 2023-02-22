@@ -1,0 +1,19 @@
+﻿@using EShop.Models.DTOS
+@model CustomerDTO
+
+<form class="col-xs-7 col-sm-7 col-md-7 col-lg-7" method="post" asp-action="Update">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">User info</h2>
+            <hr />
+        </div>
+        <partial name="PartialViews/_UserForm" model="@Model" />
+        <button type="submit" class="btn btn-primary" style="width:150px">Change info</button>
+        <a asp-controller="User" asp-action="OrderHistory" class="btn btn-success" style="width:150px">
+            Order history
+        </a>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-secondary" style="width:150px">
+            Back
+        </a>
+    </div>
+</form>

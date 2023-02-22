@@ -1,0 +1,26 @@
+﻿@using EShop.Models.StaticClasses
+@using Newtonsoft.Json
+@inject IHttpContextAccessor httpContextAcessor;
+
+@if (string.IsNullOrEmpty(httpContextAcessor.HttpContext.Session.GetString(SessionKeyManager.SessionKeyForUsers)) ||
+  string.IsNullOrEmpty(Context.Request.Cookies[SessionKeyManager.UserCookie])
+               || itemsInCart() <= 0)
+{
+    <li class="nav-item justify-content-end">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Index"><i class="bi bi-cart fs-5"></i></a>
+    </li>
+}
+else
+{
+    <li class="nav-item justify-content-end">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Index"><i class="bi bi-cart fs-5">@itemsInCart()</i></a>
+    </li>
+}
+@functions {
+    public int itemsInCart()
+    {
+        List<OrderedVariant> package = JsonConvert.DeserializeObject<List<OrderedVariant>>(
+                Context.Request.Cookies[SessionKeyManager.UserCookie]);
+            return package.Count();
+    }
+}

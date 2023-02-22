@@ -1,0 +1,24 @@
+﻿@using EShop.Models.DTOS
+@model CustomerDTO
+<form class="col-xs-7 col-sm-7 col-md-7 col-lg-7" method="get" asp-action="Login">
+    <div class="border p-3 mt-4 ">
+        <div class="row pb-2">
+            <h2 class="text-primary">Login</h2>
+            <hr />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Surname"></label>
+            <input asp-for="Surname" class="form-control" />
+            <span asp-validation-for="Surname" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:150px">Login</button>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-secondary" style="width:150px">
+            Back
+        </a>
+    </div>
+</form>

@@ -1,0 +1,13 @@
+﻿@using EShop.Models.ViewModels
+@model List<ProductVariantViewModel>;
+<div class="offset-sm-1 col col-sm-6 text-center">
+    @if (Model == null || Model.Count <= 0)
+    {
+        <h1>No items were added to the cart</h1>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-success" style="width:150px">Back</a>
+    }
+    else
+    {
+        <partial name="PartialViews\_OrderTable" model="@Model" />
+    }
+</div>

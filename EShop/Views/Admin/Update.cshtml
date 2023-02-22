@@ -1,0 +1,52 @@
+﻿@using EShop.Models.DTOS
+@using EShop.Models.ViewModels
+@model CategoryViewModel
+<form class="col-xs-7 col-sm-7 col-md-7 col-lg-7" method="post" asp-action="Update">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Update Category</h2>
+            <hr />
+        </div>
+        <div class="mb-3">
+            <label asp-for="newCategoryDTO.Name"></label>
+            <input asp-for="newCategoryDTO.Name" class="form-control" />
+            <span asp-validation-for="newCategoryDTO.Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="newCategoryDTO.Description"></label>
+            <input asp-for="newCategoryDTO.Description" class="form-control" />
+            <span asp-validation-for="newCategoryDTO.Description" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="newCategoryDTO.ParentCategoryId">Parent Category</label>
+            <select asp-for="newCategoryDTO.ParentCategoryId" class="input-group-text" >
+                @if (Model.newCategoryDTO.ParentCategoryId == null)
+                {
+                    <option value="" selected>None</option>
+                }
+                else{
+                    <option value="" >None</option>
+                }
+                @foreach (var item in @Model.categories)
+                {
+                    @if(item.Id == Model.newCategoryDTO.Id){
+                        continue;
+                    }
+                    else if (item.Id == Model.newCategoryDTO.ParentCategoryId)
+                    {
+                        <option value="@item.Id" selected>@item.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                    
+                }
+            </select>
+        </div>
+            <button type="submit" class="btn btn-primary" style="width:150px">Update</button>
+            <a asp-controller="Admin" asp-action="Index" class="btn btn-secondary" style="width:150px">
+                Back
+            </a>
+        </div>
+</form>

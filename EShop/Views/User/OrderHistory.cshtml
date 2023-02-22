@@ -1,0 +1,40 @@
+﻿@using EShop.Models.DTOS
+@model List<OrderDTO>
+<div class="offset-sm-1 col col-sm-6 text-center">
+<h3>Shopping cart:</h3>
+<table class="table table-bordered table-striped" style="width: 100%">
+    <thead>
+        <tr>
+            <th>
+                Number:
+            </th>
+            <th>
+                State:
+            </th>
+            <th>
+                Date:
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <strong>@item.Number</strong>
+                    </td>
+                    <td>
+                        <strong>@item.OrderState.ToString()</strong>
+                    </td>
+                    <td>
+                        <strong>@item.DateTime</strong>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<a asp-controller="Home" asp-action="Index" class="btn btn-success" style="width:150px">Back</a>
+</div>
